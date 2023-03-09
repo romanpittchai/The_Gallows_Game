@@ -7,15 +7,19 @@ def main
   puts "Игра виселица"
   sleep 1
   word = get_letters
-  error = 0
-  while error < 8
+  word_list = ("-" * word.length).split("")
+  error = 7
+  while error > 0
     result = check_result(word)
     if result == -1
-      error += 1
+      error -= 1
+      Gem.win_platform? ? (system "cls") : (system "clear")
+      puts "Ошибка!"
+      puts display_hangman(error)
     elsif result == 0
       puts "Эта буква уже была."
       puts "Введите другую букву."
-    else
+    elsif result  == 1
       puts "Вы угадали всё слово!"
       break
     end
