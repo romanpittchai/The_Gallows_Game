@@ -91,7 +91,7 @@ def get_letters()
   puts "Слово не должно содержать пробелов и цифр."
   word = STDIN.gets.encode("UTF-8").chomp
   while not word.eql?("#exit#")
-    if (word == nil || word == "" || word.length < 3 || 
+    if (word == nil || word == "" || (word.length < 3 && word.length > 7) || 
         word.count(" ") > 0 || word =~ /\d/)
       input_correct
       word = STDIN.gets.encode("UTF-8").chomp
@@ -121,13 +121,20 @@ end
 @good_letters = []
 @bad_letters = []
 
-def check_result(word)
+def check_result(word, word_list)
   # Проверка правильная ли буква
   # и угадано ли слово.
   
   litera = get_user_input(word)
   if (word.include? litera) && (not @good_letters.include? litera)
     @good_letters << litera
+    for i in (0...word.length)
+      if (word[i].eql? litera)
+        word_list[i] = litera
+      end
+    end
+    print(*word_list)
+    puts
   elsif (not word.include? litera) && (not @bad_letters.include? litera)
     @bad_letters << litera
     return -1

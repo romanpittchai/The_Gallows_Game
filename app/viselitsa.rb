@@ -10,7 +10,7 @@ def main
   word_list = ("-" * word.length).split("")
   error = 7
   while error > 0
-    result = check_result(word)
+    result = check_result(word, word_list)
     if result == -1
       error -= 1
       Gem.win_platform? ? (system "cls") : (system "clear")
